@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Stig Features feature.
+ */
+
+include_once 'stig_features.features.inc';

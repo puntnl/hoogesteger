@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Stig Commerce feature.
+ */
+
+include_once 'stig_commerce.features.inc';

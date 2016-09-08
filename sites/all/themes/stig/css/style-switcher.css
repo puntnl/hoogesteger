@@ -1,0 +1,141 @@
+.style-switcher {
+  position: fixed;
+  top: 180px;
+  left: -200px;
+  z-index: 2000;
+  width: 200px;
+  border-radius: 0 0 6px;
+  background: #3d3d3d;
+}
+.style-switcher h3 {
+  margin: 0;
+  padding: 5px 0 5px 20px;
+  background: #494949;
+  color: #fff;
+  text-transform: none;
+  font-size: 17px;
+  line-height: 30px;
+  font-weight: 200;
+}
+.style-switcher h3 a {
+  position: absolute;
+  top: 0;
+  right: -40px;
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 0 5px 5px 0;
+  background-color: #494949;
+  color: #FFF;
+  text-align: center;
+  text-decoration: none;
+  font-size: 24px;
+  line-height: 40px;
+}
+.style-switcher h3 a .fa {
+  color: #fff;
+  margin-right: 4px;
+}
+.style-switcher-body {
+  padding: 20px;
+}
+.style-switcher-body h4 {
+  font-size: 17px;
+  font-weight: normal;
+  color: #fff;
+  margin-bottom: .5em;
+}
+.style-switcher-body ul {
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.styles-switcher-colors {
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+  margin-bottom: -10px;
+  margin-right: -10px;
+}
+.styles-switcher-colors li {
+  float: left;
+  margin: 0 10px 10px 0;
+}
+.styles-switcher-colors li a {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: #dc2a0b;
+  border: 1px solid transparent;
+}
+.styles-switcher-colors li a:hover {
+  border-color: #fff;
+}
+
+.styles-switcher-colors li a.active{
+  border-color: #000;
+}
+.styles-switcher-colors li a.color-default{
+  background: #e91e63;
+}
+.styles-switcher-colors li a.color-blue{
+  background: #03a9f4;
+}
+.styles-switcher-colors li a.color-blue-gray{
+  background: #607d8b;
+}
+.styles-switcher-colors li a.color-brown{
+  background: #795548;
+}
+.styles-switcher-colors li a.color-cyan{
+  background: #00bcd4;
+}
+.styles-switcher-colors li a.color-green{
+  background: #4caf50;
+}
+.styles-switcher-colors li a.color-green-light{
+  background: #8bc34a;
+}
+.styles-switcher-colors li a.color-indigo{
+  background: #3f51b5;
+}
+.styles-switcher-colors li a.color-orange{
+  background: #ff9800;
+}
+.styles-switcher-colors li a.color-orange-deep{
+  background: #ff5722;
+}
+.styles-switcher-colors li a.color-purple{
+  background: #9c27b0;
+}
+.styles-switcher-colors li a.color-red{
+  background: #f44336;
+}
+.styles-switcher-colors li a.color-yellow{
+  background: #ffc107;
+}
+
+/* Layouts */
+.buttons-switcher {
+  list-style: none;
+  padding: 0 0 10px 0;
+}
+.buttons-switcher li {
+  float: right;
+  width: 45%;
+  text-align: center;
+}
+.buttons-switcher li:first-child {
+  float: left;
+}
+.buttons-switcher li a {
+  display: block;
+  border: 2px solid rgba(255,255,255,.1);
+  padding: 5px 0;
+  color: #fff;
+}
+.buttons-switcher li a:hover,
+.buttons-switcher li a.active {
+  text-decoration: none;
+  background: rgba(255,255,255,.1);
+}

@@ -1,0 +1,502 @@
+<?php
+
+function _get_node_field($node, $field, $lang = 'en') {
+  global $language;
+  $var = FALSE;
+  if(!empty($node->{$field}[$lang])) {
+      $var = $node->{$field}[$lang];
+  } elseif(!empty($node->{$field}[$language->language])) {
+      $var = $node->{$field}[$language->language];
+  } elseif(!empty($node->{$field}['und'])) {
+      $var = $node->{$field}['und'];
+  } elseif(!empty($node->{$field})) {
+      $var = $node->{$field};
+  }
+  return $var;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function stig_cms_init() {
+  global $user;
+  if(variable_get('maintenance_mode', 0) && !$user->uid && !in_array($_GET['q'], array('user', 'user/login'))) {
+    $_GET['q'] = 'maintenance';
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function stig_cms_menu() {
+  //$node = node_load(61);unset($node->nid, $node->vid, $node->created);node_save($node);
+  $items['page-404'] = array(
+    'title' => 'Page not Found',
+    'page callback' => 'stig_cms_page_404',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+function stig_cms_page_404() {
+  return '';
+}
+
+/**
+ * Implements hook_user_login().
+ */
+function stig_cms_user_login(&$edit, $account) {
+  $edit['redirect'] = '<front>';
+}
+
+/**
+ * Implements hook_menu().
+ */
+function stig_cms_block_info() {
+  $blocks = array();
+
+  $blocks['products_filter'] = array(
+    'info' => t('Stig: Products Filter'),
+    'cache' => DRUPAL_CACHE_PER_PAGE,
+    'region' => 'sidebar',
+    'status' => 0
+  );
+  $blocks['project_next_prev'] = array(
+    'info' => t('Stig: Project Next Prev'),
+    'cache' => DRUPAL_CACHE_PER_PAGE,
+    'status' => 0
+  );
+  return $blocks;
+}
+
+/**
+ * Implementation of hook_block_configure().
+ */
+function stig_cms_block_configure($delta = '') {
+  $form = array();
+  if ($delta == 'project_next_prev') {
+    $form['project_next_prev_all_works'] = array(
+      '#type' => 'textfield',
+      '#title' => t('All Works Link'),
+      '#default_value' => variable_get('project_next_prev_all_works', ''),
+    );
+  }
+  return $form;
+}
+
+/**
+ * Implementation of hook_block_save().
+ */
+function stig_cms_block_save($delta = '', $edit = array()) {
+  if ($delta == 'project_next_prev') {
+    variable_set('project_next_prev_all_works', $edit['project_next_prev_all_works']);
+  }
+}
+
+/**
+ * Implementation of hook_block_view().
+ */
+function stig_cms_block_view($delta) {
+  $block = array();
+  switch ($delta) {
+    case 'products_filter':
+      $form['from'] = array(
+        '#type' => 'textfield',
+        '#attributes' => array('placeholder' => t('FROM')),
+        '#prefix' => '<div class = "row form"><div class = "col-xs-6 products-filter-from">'
+      );
+      $form['to'] = array(
+        '#type' => 'textfield',
+        '#attributes' => array('placeholder' => t('TO')),
+        '#prefix' => '</div><div class = "col-xs-6 products-filter-to"">',
+        '#suffix' => '</div></div><button class="btn btn-mod btn-medium btn-full btn-round">' . t('Filter') . '</button>'
+      );
+      $block = array(
+        'subject' => t('Filter by Price'),
+        'content' => $form
+      );
+      break;
+    case 'project_next_prev':
+    global $language;
+      $lang = isset($language->language) ? $language->language : 'und';
+      $nids = db_select('node', 'n')->condition('n.type', 'nd_portfolio')->condition('n.language', $lang)->condition('n.status', 1)->fields('n', array('nid', 'title'))->orderBy('n.created', 'DESC')->execute()->fetchAll();
+      $offset = 0;
+      foreach($nids as $i => $entity) {
+        $offset = $entity->nid == arg(1) ? $i : $offset; 
+      }
+      $next = !$offset ? $nids[count($nids) - 1] : $nids[$offset - 1];
+      $prev = ($offset + 1) == count($nids) ? $nids[0] : $nids[$offset + 1];
+      $block = array(
+        'subject' => '',
+        'content' => theme('stig_project_next_prev', array('next' => $next->nid, 'prev' => $prev->nid, 'all_works' => variable_get('project_next_prev_all_works', '')))
+      );
+      break;
+  }
+  return $block;
+}
+
+function stig_cms_menu_edit_item_validate($form, &$form_state) {
+  $values = $form_state['values'];
+  if(strpos($values['link_path'], '#') === 0) {
+    $values['link_path'] = str_replace('#', 'http://_anchor_', $values['link_path']);
+    form_set_value(array('#parents' => array('link_path')), $values['link_path'], $form_state);
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function stig_cms_form_alter(&$form, &$form_state, $form_id) {
+  if(strpos($form_id, 'commerce_cart_add_to_cart_form') !== FALSE) {
+    $form['quantity']['#title_display'] = 'none';
+    $form['quantity']['#attributes']['class'] = array('input-lg', 'round', 'auto-width');
+    $form['quantity']['#attributes']['type'] = 'number';
+  }
+  if ($form['#id'] == 'comment-form') {
+    $form['author']['#prefix'] = '<div class = "row mb-md-10"><div class = "col-md-6 mb-md-10">';
+    $form['field_email']['#prefix'] = '</div><div class = "col-md-6 mb-md-10">';
+    $form['field_email']['#suffix'] = '</div></div>';
+  }
+  switch ($form_id) {
+    case 'menu_edit_item':
+      if (isset( $form['link_path']['#default_value'])) {
+        $form['link_path']['#default_value'] = str_replace('http://_anchor_', '#', $form['link_path']['#default_value']);
+        array_unshift($form['#validate'], 'stig_cms_menu_edit_item_validate');        
+      }
+      break;
+    case 'user_login':
+      if(arg(0) == 'user') {
+        $form['#prefix'] = '<div class = "row mt-20"><div class = "col-md-4 col-md-offset-4">';
+        $form['#suffix'] = '</div></div>';
+        $form['name']['#attributes']['placeholder'] = t('Username');
+        $form['pass']['#attributes']['placeholder'] = t('E-mail');
+        unset($form['name']['#description'], $form['pass']['#description']);
+        $form['actions']['#prefix'] = '<div class="cf-left-col"><div class="form-tip pt-20">' . l(t('Forgot Password?'), 'user/password') . '</div></div><div class="cf-right-col"><div class="align-right pt-10">';
+        $form['actions']['#suffix'] = '</div></div>';
+      }
+      break;
+    case 'user_pass':
+      $form['#prefix'] = '<div class = "row mt-20"><div class = "col-md-4 col-md-offset-4">';
+      $form['#suffix'] = '</div></div>';
+      $form['actions']['submit']['#attributes']['class'] = array('btn-full');
+      break;
+    case 'user_register_form':
+      $form['#prefix'] = '<div class = "row mt-20"><div class = "col-md-4 col-md-offset-4">';
+      $form['#suffix'] = '</div></div>';
+      unset($form['account']['name']['#description'], $form['account']['mail']['#description']);
+      $form['actions']['submit']['#attributes']['class'] = array('btn-full');
+      break;
+    case 'search_block_form':
+      $form['search_block_form']['#prefix'] = '<div class = "search-wrap"><button class="search-button animate" type="submit" title="Start Search"><i class="fa fa-search"></i></button>';
+      $form['search_block_form']['#suffix'] = '</div>';
+      $form['search_block_form']['#title'] = t('Search..');
+      $form['actions']['#attributes']['class'][] = 'hidden';
+      break;
+    case 'search_form':
+      $form['basic']['keys']['#prefix'] = '<div class = "search-wrap"><button class="search-button animate" type="submit" title="Start Search"><i class="fa fa-search"></i></button>';
+      $form['basic']['keys']['#suffix'] = '</div>';
+      $form['basic']['keys']['#title'] = t('Search..');
+      $form['basic']['submit']['#attributes']['class'][] = 'hidden';
+      break;
+  }
+}
+
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function stig_cms_field_formatter_info() {
+  return array(
+    'stig_cms_images_main_small' => array(
+      'label' => t('Stig: Images One Main'),
+      'field types' => array('image'),
+      'settings'  => array(
+        'image_style_name' => '',
+        'image_style_name_small' => '',
+        'col' => 3,
+        'zoom' => TRUE
+      ),
+    ),
+    'stig_cms_images_slider' => array(
+      'label' => t('Stig: Images Slider'),
+      'field types' => array('image'),
+      'settings'  => array(
+        'image_style_name' => '',
+      ),
+    ),
+    'stig_cms_lead_text' => array(
+      'label' => t('Stig: Lead Text'),
+      'field types' => array('text_long'),
+    ),
+    'stig_cms_title' => array(
+      'label' => t('Stig: Title'),
+      'field types' => array('text'),
+      'settings'  => array(
+        'tag' => 'h1',
+      ),
+    ),
+    'stig_cms_social_links' => array(
+      'label' => t('Stig: Social Links'),
+      'field types' => array('link_field'),
+    ),
+    'stig_cms_button_link' => array(
+      'label' => t('Stig: Button Link'),
+      'field types' => array('link_field'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function stig_cms_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  //This gets the view_mode where our settings are stored
+  $display = $instance['display'][$view_mode];
+  //This gets the actual settings
+  $settings = $display['settings'];
+  switch($display['type']) {
+    case 'stig_cms_images_main_small':
+      $element = array();
+      $image_styles = array();
+      foreach(image_styles() as $name => $image_style) {
+        $image_styles[$name] = $image_style['label'];
+      }
+      $element['image_style_name'] = array(
+        '#type' => 'select',
+        '#title' => t('Image Style for Main Image'),
+        '#default_value' => $settings['image_style_name'],
+        '#options' => $image_styles
+      );
+      $element['image_style_name_small'] = array(
+        '#type' => 'select',
+        '#title' => t('Image Style for Small Images'),
+        '#default_value' => $settings['image_style_name_small'],
+        '#options' => $image_styles
+      );
+      $cols = array(2, 3, 4, 6);
+      $element['col'] = array(
+        '#type' => 'select',
+        '#options' => array_combine($cols, $cols),
+        '#title' => t('Columns Count for Small Images'),
+        '#default_value' => $settings['col'] ? $settings['col'] : 3,
+      );
+      $element['zoom'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Add Zoom feature'),
+        '#default_value' => $settings['zoom'],
+      );
+      break;
+    case 'stig_cms_images_slider':
+      $element = array();
+      $image_styles = array();
+      foreach(image_styles() as $name => $image_style) {
+        $image_styles[$name] = $image_style['label'];
+      }
+      $element['image_style_name'] = array(
+        '#type' => 'select',
+        '#title' => t('Image Style for Main Image'),
+        '#default_value' => $settings['image_style_name'],
+        '#options' => $image_styles
+      );
+      break;
+    case 'stig_cms_title':
+      $element = array();
+      $tags = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6');
+      $element['tag'] = array(
+        '#type' => 'select',
+        '#title' => t('Tag'),
+        '#default_value' => $settings['tag'],
+        '#options' => array_combine($tags, $tags)
+      );
+      break;
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function stig_cms_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  switch($display['type']) {
+    case 'stig_cms_images_main_small':  
+      $settings = $display['settings'];
+      $image_styles = image_styles();
+      $style_name = isset($image_styles[$settings['image_style_name']]['label']) ? $image_styles[$settings['image_style_name']]['label'] : 'Original';
+      $summary = t('Image size @style with @zoom Zoom feature.', array(
+        '@style' => $style_name,
+        '@zoom' => $settings['zoom'] ? 'enabled' : 'disabled',
+      ));
+      return $summary;
+    case 'stig_cms_images_slider':  
+      $settings = $display['settings'];
+      $image_styles = image_styles();
+      $style_name = isset($image_styles[$settings['image_style_name']]['label']) ? $image_styles[$settings['image_style_name']]['label'] : 'Original';
+      $summary = t('Image size @style', array(
+        '@style' => $style_name,
+      ));
+      return $summary;
+    case 'stig_cms_title':  
+      $settings = $display['settings'];
+      $summary = t('Title @tag', array(
+        '@tag' => $settings['tag'],
+      ));
+      return $summary;
+  }
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function stig_cms_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  if(!count($items)) {
+    return;
+  }
+  switch($display['type']) {
+    case 'stig_cms_images_main_small':
+      $element = array();
+      $settings = $display['settings'];
+      $sale = _get_node_field($entity, 'field_sale_text');
+      $sale_text = isset($sale[0]['safe_value']) ? '<div class="intro-label"><span class="label label-danger bg-red">' . t($sale[0]['safe_value']) . '</span></div>' : '';
+      $image = array_shift($items);
+      $output = '<div class="post-prev-img">
+          <a href="' . file_create_url($image['uri']) . '" class="lightbox-gallery-3 mfp-image">
+          ' . theme('image_style', array('style_name' => $settings['image_style_name'], 'path' => $image['uri'])) .'</a>
+          ' . $sale_text . '
+      </div>';
+
+      $output .= '<div class="row">';
+      foreach ($items as $delta => $item) {
+        $output .= '<div class="col-xs-' . $settings['col'] . ' post-prev-img">';
+        $image = theme('image_style', array('style_name' => $settings['image_style_name_small'], 'path' => $item['uri']));
+        if($settings['zoom']) {
+          $output .= '<a href="' . file_create_url($item['uri']) . '" class="lightbox-gallery-3 mfp-image">
+            ' . $image . '
+          </a>';
+        }
+        else {
+          $output .= $image;
+        }
+        $output .= '</div>';
+      }
+      $output .= '</div>';
+      
+      $element[0]['#markup'] = $output;
+      return $element;
+    case 'stig_cms_images_slider':
+      $element = array();
+      $settings = $display['settings'];
+
+      $output = '<ul class="clearlist content-slider mb-40">';
+      foreach ($items as $delta => $item) {
+        $output .= '<li>' . theme('image_style', array('style_name' => $settings['image_style_name'], 'path' => $item['uri'])) . '</li>';
+      }
+      $output .= '</ul>';
+      
+      $element[0]['#markup'] = $output;
+      return $element;
+    case 'stig_cms_lead_text':
+      $element = array();
+      $output = '';
+      foreach ($items as $delta => $item) {
+        $output .= '<div class = "lead">' . check_markup($item['value'], $item['format']) . '</div>';
+      }
+      
+      $element[0]['#markup'] = $output;
+      return $element;
+    case 'stig_cms_title':
+      $element = array();
+      $settings = $display['settings'];
+      $output = '';
+      $tag = $settings['tag'];
+      foreach ($items as $delta => $item) {
+        $output .= '<' . $tag . ' class = "mt-0 font-alt">' . (isset($item['format']) && $item['format'] ? check_markup($item['value'], $item['format']) : $item['value']) . '</' . $tag . '>';
+      }
+      
+      $element[0]['#markup'] = $output;
+      return $element;
+    case 'stig_cms_social_links':
+      $element = array();
+      $output = '<div class = "team-social-links">';
+      foreach ($items as $delta => $item) {
+        $output .= '<a href="' . $item['url'] . '" target = "_blank"><i class=" ' . $item['title'] . '"></i></a>';
+      }
+      $output .= '</div>';
+      $element[0]['#markup'] = $output;
+      return $element;
+    case 'stig_cms_button_link':
+      $element = array();
+      $output = '';
+      foreach ($items as $delta => $item) {
+        $output .= '<a href="' . $item['url'] . '" target = "_blank" class = "btn btn-mod btn-border btn-round btn-medium">' . t($item['title']) . '</a>';
+      }
+      $element[0]['#markup'] = $output;
+      return $element;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function stig_cms_theme($existing, $type, $theme, $path) {
+  $theme = array(
+    'stig_project_next_prev' => array(
+      'variables' => array('prev' => '', 'next' => '', 'all_works' => ''),
+    ),
+    'stig_cms_menu' => array(
+      'variables' => array('menu' => '', 'logo' => '', 'transparent' => 0, 'color' => 'dark', 'language' => FALSE, 'stick_fixed' => ''),
+      'template' => 'stig-cms-menu'
+    )
+  );
+  return $theme;
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function stig_cms_theme_registry_alter(&$theme_registry) {
+  $theme_registry['nikadevs_cms_block_settings']['path'] = drupal_get_path('theme', 'stig') . '/templates';
+}
+
+function stig_cms_preprocess_block(&$variables) {
+  $settings = variable_get('nikadevs_cms_block_settings_' . variable_get('theme_default', 'none'), array());
+
+  $variables['title_tag'] = 'h5';
+  $variables['title_type'] = 'widget-title';
+  $variables['title_padding_bottom'] = '';
+  $variables['padding_bottom'] = '';
+  $id = $variables['block']->module . '_' . $variables['block']->delta;
+  if(isset($settings[$id])) {
+    if(isset($settings[$id]['animation_delay']) && !empty($settings[$id]['animation_delay'])) {
+      $variables['attributes_array']['data-wow-duration'] = $settings[$id]['animation'];
+    }
+    if(isset($settings[$id]['animation']) && !empty($settings[$id]['animation'])) {
+      $variables['attributes_array']['class'] = 'wow ' . $settings[$id]['animation'];
+      unset($variables['attributes_array']['data-animation'], $variables['attributes_array']['data-animation-delay']);
+    }
+    if(isset($settings[$id]['padding_bottom']) && $settings[$id]['padding_bottom']) {
+      $variables['classes_array'][] = $settings[$id]['padding_bottom'];
+    }
+    $variables['title_tag'] = isset($settings[$id]['title_tag']) ? $settings[$id]['title_tag'] : $variables['title_tag'];
+    $variables['title_type'] = isset($settings[$id]['title_type']) && $settings[$id]['title_type'] ? $settings[$id]['title_type'] : $variables['title_type'];
+    $variables['padding_bottom'] = isset($settings[$id]['padding_bottom']) && $settings[$id]['padding_bottom'] ? $settings[$id]['padding_bottom'] : $variables['padding_bottom'];
+    $variables['title_padding_bottom'] = isset($settings[$id]['title_padding_bottom']) && $settings[$id]['title_padding_bottom'] ? $settings[$id]['title_padding_bottom'] : $variables['title_padding_bottom'];
+
+  }
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function stig_cms_node_view($node, $view_mode, $language) {
+  if ($view_mode == 'full' && in_array($node->type, array('nd_blog'))) {
+    $nids = db_select('node', 'n')->condition('n.type', $node->type)->fields('n', array('nid', 'title'))->orderBy('n.created', 'DESC')->execute()->fetchAll();
+    $offset = 0;
+    foreach($nids as $i => $entity) {
+      $offset = $entity->nid == $node->nid ? $i : $offset; 
+    }
+    $node->next = !$offset ? $nids[count($nids) - 1] : $nids[$offset - 1];
+    $node->prev = ($offset + 1) == count($nids) ? $nids[0] : $nids[$offset + 1];
+  }
+}

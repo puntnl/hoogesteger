@@ -1,0 +1,846 @@
+@charset "UTF-8";
+/* Insert your custom CSS styles */
+
+
+.mobile-on .inner-nav{
+	max-width:100%;
+	}
+.mobile-on .inner-nav a{
+	text-align:center!important;
+	}
+	
+.mobile-on .mn-sub li{
+	padding-left:0!important;
+	}
+
+@media only screen and (max-width : 1279px) {
+
+.full-wrapper{
+	margin: 0 0 0 2%!important;
+	}
+	
+.mobile-on a.logo{
+	background:red;
+	max-height: 112px;
+	}	
+
+.nav-logo-wrap a.logo{
+	width: 60px;
+	background: url("/sites/all/themes/stig/images/logo-mobile.gif")  no-repeat left center;
+	}
+
+.nav-logo-wrap .logo img{
+	display:none!important;
+	}
+	
+}
+
+	
+@media only screen and (min-width: 1280px) {
+.jj-clear{
+	height:185px!important;
+	background:white
+	}
+.nav-logo-wrap{}
+}
+	
+@media only screen and (max-width: 1279px) {
+.jj-clear{
+	height:75px!important;
+	background:white;
+	}
+}
+
+.expand{
+	transform: scale(1.3);
+	margin: 80px 0;
+	}
+
+.about-the-company{
+	background: white;
+	padding: 85px 100px;	
+	margin:50px 0;
+	}
+
+.about-the-company h1{
+    color: #69b545 !important;
+    font-family: Cambria,"Hoefler Text","Liberation Serif",Times,"Times New Roman",serif !important;
+    font-size: 60px !important;
+    font-style: italic !important;
+    font-weight: bold !important;
+    margin: 0 !important;
+	padding-bottom:40px;
+	}
+	
+.mn-sub li span.locale-untranslated{
+	display:none!important;	
+	}
+
+.xxx{
+	background: url("/sites/all/themes/stig/images/bg-xxx.png") top left repeat-x #efefef fixed;	
+	 }
+
+.harvest-01 h1{
+	color: #b5d665!important;
+	}
+
+.harvest-01 p{
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;	
+	color: white!important
+	}
+
+.harvest-rechts{
+	margin-right: -50px;
+	margin-bottom:40px;
+	}
+
+.harvest-links {
+	margin-left: -50px;
+	margin-bottom:40px;
+	}
+	
+.wit-rechts{
+	display:inline-block;
+	width: 290px;
+	position:absolute;
+	top:130px;
+	right:120px;
+	background:white;
+	-webkit-box-shadow: 0 0 33px 2px rgba(0, 0, 0, 0.40);
+	-moz-box-shadow: 0 0 33px 2px rgba(0, 0, 0, 0.40);
+	box-shadow: 0 0 33px 2px rgba(0, 0, 0, 0.40);
+	}
+
+.wit-links{
+	display:inline-block;
+	width: 290px;
+	position:absolute;
+	top:115px;
+	left:100px;
+	background:white;
+	-webkit-box-shadow: 0 0 33px 2px rgba(0, 0, 0, 0.40);
+	-moz-box-shadow: 0 0 33px 2px rgba(0, 0, 0, 0.40);
+	box-shadow: 0 0 33px 2px rgba(0, 0, 0, 0.40);
+	}
+
+.wit-links h2,
+.wit-rechts h2{
+	margin:0;
+	padding:0;
+	text-transform:uppercase;
+	color: #68b544;
+	font-weight:bold;
+	}
+	
+.wit-links p,
+.wit-rechts p{
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;	
+	}
+	
+.groen-links{
+	display:inline-block;
+	width: 330px;
+	background: rgba(116,172,66,0.9);
+	margin:0; 
+	
+    left: 100px;
+    position: absolute;
+    bottom: 30px;	
+	}
+	
+.groen-rechts{
+	display:inline-block;
+	width: 330px;
+	position:absolute;
+	bottom:30px;
+	right:120px;
+	background: rgba(116,172,66,0.9);
+	margin:0; 
+	}
+
+.wit-rechts p,
+.wit-links p,
+.groen-links p,
+.groen-rechts p{
+	margin:0;}
+
+.harvest-03 h3{
+	font-weight: bold;
+	color:#58ad30;	
+	font-size: 24px;
+	}
+
+.harvest-03 p{
+	font-style:italic;
+	font-weight:normal;
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;	
+	color: black;
+	font-size: 24px;
+	line-height:normal;	
+	}
+
+.harvest-04 h5{
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;	
+	font-style:italic;
+	font-weight:bold;	
+	font-size: 36px;
+	margin:0;
+	padding-bottom: 15px
+	
+	}
+
+@media only screen and (max-width: 1000px) {
+
+.our-people .split-section-content.left{
+	width:100%!important;
+	}
+
+.our-people .split-section-content.left{
+	width: 100%!important;
+	}
+
+.split-section-headings	{
+	width: 100%!important;
+	}
+}
+
+@media only screen and (min-width: 1001px) {
+
+.our-people .split-section-headings.right{
+	width:65%!important;
+	}
+
+.our-people .split-section-content.left{
+	width: 35%!important;
+	}
+}
+
+.our-people{
+	background: url("/sites/all/themes/stig/images/bg-xxx.png") bottom left repeat-x #efefef fixed!important;	
+	}
+
+.our-people-slider{
+	-webkit-box-shadow: 0px 0px 30px 2px rgba(204,204,204,1);
+	-moz-box-shadow: 0px 0px 30px 2px rgba(204,204,204,1);
+	box-shadow: 0px 0px 30px 2px rgba(204,204,204,1);
+}
+
+.our-people .bg-gray-lighter{
+	background: white!important}
+
+.views-tooltip{
+	width: 109px;
+	margin: 0 auto;
+	}
+
+.views-tooltip strong{
+	display:block;
+	width:100%;
+	font-size: 18px;
+	text-align:center;
+	padding: 10px 0;
+	font-style:italic;
+	font-weight:normal;
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;	
+	}
+
+.view-products{
+	text-align:center;
+	margin: 0 auto;}
+
+.view-products .view-content{
+  	margin:0 auto;
+	border:0px solid blue;
+	display:inline-block;
+	text-align:center;
+	}
+	
+.view-products .views-row{
+	float: left;
+	min-width: 200px;
+	border:0px solid red;
+	display:inline-block;
+	}
+
+.tipsy{
+	padding: 30px;
+-webkit-box-shadow: 0px 0px 130px 2px rgba(204,204,204,1);
+-moz-box-shadow: 0px 0px 130px 2px rgba(204,204,204,1);
+box-shadow: 0px 0px 130px 2px rgba(204,204,204,1);
+
+		background:white!important;
+	color: black!important;
+	font-size:18px!important;
+	text-align:left;
+	border:0px solid red;
+	}	 
+	 .test{
+	background:white!important;
+	color: black!important;
+	font-size:18px!important;
+	text-align:left;
+	position:relative;
+	}
+	
+.tipsy strong{
+	font-style:italic;
+	font-weight:bold;
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;
+	}
+
+.tipsy .hoekje{
+	position:absolute;
+	bottom:0px;
+	top:0;
+	margin: auto;
+	line-height:100%;
+	
+	left: -45px;
+	background:white;
+	display:inline-block;
+	width: 45px;
+	height: 45px;
+	border:0px solid red;
+ -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+    transform: rotate(45deg);	
+	}
+.tipsy ul{
+	border:0px solid red;
+	margin:20px 0 0 0;
+	padding:0px;
+	}
+.tipsy li{
+
+   background: rgba(0, 0, 0, 0) url("/sites/all/themes/stig/images/checkmark.gif") no-repeat scroll 0 50%;
+    list-style: outside none none;
+    padding: 4px 0 4px 40px;
+	display:inline-block;
+	width: 49%;
+	border: 0px solid red;
+	}	
+	
+.products-01 img{
+	display:block;
+	}
+
+
+.products-01 .owl-buttons{
+	position:fixed!important;
+	width:100%!important;
+	top: 50%!important;
+	z-index:20000;
+	}
+
+.products-01 h1{
+background: rgba(169, 205, 94, 0.8) none repeat scroll 0 0;
+    display: inline-block;
+    float: left;
+    font-weight: bold;
+    line-height: 38px;
+    margin: -130px 0 0 -70px;
+    padding: 20px;
+    position: relative;
+    width: 290px;
+	text-align:left;
+
+	}
+	
+.products-01 h1 em{
+	font-style:italic;
+	font-weight:bold;
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;
+
+}
+	
+.juicery-01	h5,
+.juicery-01	h3{
+	font-style:italic;
+	font-weight:bold;
+	font-size:28px;
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	padding: 50px 0;	
+	margin:0;		
+	}
+
+.juicery-01	h3{
+	padding-bottom: 40px!important}
+	  
+.white-shadow{
+	box-shadow: 0 0 200px rgba(255, 255, 255, 0.0)!important}
+
+h5.our-posibilities {
+	color: black;
+	font-style:italic;
+	font-weight:bold;
+	font-size:28px;
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;			
+	}
+	
+.jobs-intro h3{
+	text-transform:uppercase;
+	color:#74ac42;
+	font-weight: bold;
+	font-size: 28px;
+	}
+
+.jobs-intro .btn{
+	margin-top: 30px;
+	background:#fff;
+	padding: 6px 30px;
+	font-size:22px;
+	font-style:italic;
+	color: black;
+	text-transform:uppercase;
+	font-weight:bold;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;	
+}
+
+
+.jobs-teaser h2 a{
+	text-decoration:none!important;
+	color:black!important;
+	}
+.jobs h1{
+	font-size: 34px;
+	text-transform:uppercase;
+	font-weight: bold;
+}
+
+.news-teaser h2 a{
+	text-decoration:none!important;
+	color: white!important;
+	}	
+
+
+.footer-wrap{
+	 -webkit-box-shadow: 10px 0 94px 0 #c8c8c8;
+          box-shadow: 10px 0 94px 0 #c8c8c8;
+	}
+
+.news-overview{
+	background: #74ac42;
+    -webkit-box-shadow: 0 0 40px 25px #629238 inset;
+    box-shadow: 0 0 40px 25px #629238 inset;
+	padding: 50px 0;
+	margin:0;
+}
+
+.news-overview em{
+	color: white;
+	font-weight:bold;
+	font-size:28px;
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;	
+	}
+
+.news-overview em span{
+	color: #b4d564!important;
+	}
+
+.news-overview h1{
+	text-transform:uppercase;
+	font-weight:bold;
+	color:white;
+	margin:0;
+	font-size:80px;
+		}
+
+.header-newscontent{
+	color: black;
+	font-weight:bold;
+	font-size:28px;
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;	
+	padding: 60px 0 10px;	
+	}
+
+.header-newscontent span{
+	color: #CCCCCC!important;
+	}
+
+/* .mb-10 { display: none;} */
+
+   /* Smartphone Portrait and Landscape */
+
+@media only screen and (max-device-width : 320px) and (max-width : 320px) {
+.home-01 h2{
+	font-size: 44px!important;
+	}
+
+.home-01-title{
+	display:inline-block!important;
+	color: white!important;
+	width: 300px!important;
+	}
+	
+
+.jobs-teaser span.datum,
+.news-teaser span.datum, 
+.news span{
+	display:inline-block;
+	font-weight: normal!important;
+	padding: 20px!important;
+	font-style:italic;
+	font-color: #cccccc!important;
+	color:#ccc!important;
+	font-size:18px;
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	}
+	
+.news-teaser .content,
+.news .content{
+	padding: 20px!important;
+	}
+
+.news-teaser h2{
+	padding: 60px 20px!important;
+	}
+	
+	}
+
+
+
+.view-news .views-row{
+	}
+
+/* .view-news .content-wrap{
+	padding: 50px;}*/
+
+.view-news h2{
+	
+}
+
+.jobs{
+	margin: 50px 0 100px 0!important;
+	}
+	
+.news, .jobs{
+	margin: 50px 0;
+	background: white;
+	}
+
+.news h1{
+	text-transform:uppercase;
+	padding: 160px 60px;
+	transform: scale(1.05);
+	font-weight:bold;
+	color:white;
+	margin:0;
+	}
+	
+.jobs-teaser, 
+.news-teaser {
+	background:#FFFFFF;
+	margin:50px 0;
+	}
+
+.jobs-teaser{
+	padding:60px;
+	margin: 20px 0!important
+	}
+.jobs-teaser h2{
+	text-transform:uppercase;
+	font-weight:bold;
+	color:black;
+	margin:0;
+	}
+		
+.news-teaser h2{
+	text-transform:uppercase;
+	padding: 60px;
+	transform: scale(1.05);
+	font-weight:bold;
+	color:white;
+	margin:0;
+	}
+
+.jobs-teaser span.datum{
+	padding:0 0 50px 0!important
+	}
+
+.aantal-uur{
+	color: #69b545;
+	font-size:34px;
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	font-weight:bold;
+	margin-top:-15px;
+	font-style:italic;
+	display:inline-block;
+	padding-bottom:40px;
+	}	
+
+
+.jobs h1{
+	margin: 20px 0 0 0!important;
+	}
+
+.jobs h2{
+	color: #69b545;
+	font-size:34px;
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	font-weight:normal;
+	margin:0;
+	text-transform:uppercase;
+	font-style:italic;
+	display:inline-block;
+	padding-bottom:40px;
+	}
+
+.jobs ul{
+	padding: 0;
+	}
+
+.jobs ul li{
+	list-style:none;
+	padding: 20px 0 0 60px;
+	background:url("/sites/all/themes/stig/images/check.png") no-repeat 0 50%;}
+	
+.jobs span.datum{
+	padding: 20px 0!important;
+	}
+
+.jobs span.datum,
+.jobs-teaser span.datum,
+.news-teaser span.datum, 
+.news span{
+	display:inline-block;
+	padding: 55px 100px;
+	font-style:italic;
+	color: #ccc!important;
+	font-size:18px;
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	}
+	
+.news-teaser .content,
+.news .content,
+.jobs{
+	padding: 60px 100px;
+	}
+
+.news .content blockquote p{
+	transform: scale(1.09);
+	padding: 30px 0;
+	font-style:italic!important;
+	font-weight: bold;
+	color: #74ac42;
+	font-size:20px;
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+			
+	}		
+
+.jobs .read-more{
+	margin: 100px 0!important;
+	display:inline-block
+	}
+
+.jobs .read-more,
+.jobs-teaser .read-more,
+.news-teaser .read-more{
+	margin-top: 30px;
+	background:#74ac42;
+	padding: 6px 30px;
+	font-size:22px;
+	font-style:italic;
+	color: white;
+	text-transform:uppercase;
+	font-weight:bold;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;	
+	}
+		
+#block-locale-language li{display:none}
+
+#block-locale-language{
+	position:fixed;
+	z-index:20000000000;
+	top:0;
+	right:0;
+	
+	display:inline-block;
+	padding:0;
+	margin:0;
+	width: 75px;
+	height:75px;
+	background: red;
+	overflow:hidden;
+	}
+
+.groenebalk-slider .split-section-content.right{
+	background: #b4d569!important
+	}
+
+.mb-10{
+	text-align:center!important
+	}
+
+
+
+.home-01 h2{
+	font-size: 74px;
+	font-weight:bold;
+	line-height:normal;
+	text-shadow: -3px 0px 29px rgba(0, 0, 0, 0.4);
+	}
+
+.home-01-title{
+	display:inline-block!important;
+	color: white!important;
+	width: 355px;
+	}
+
+.home-01-text{
+	display:inline-block!important;
+	color: white!important;
+	width: 320px!important
+	}
+
+.home-02 h2{
+	font-style: italic!important;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;
+	font-weight: bold;	
+	font-size:48px;
+	}
+
+.home-03 h2{
+	font-size: 55px; 
+	line-height:normal;
+	font-weight: bold;
+	}
+	
+.home-03 h2 i, h2 i{
+	font-style: italic!important;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;
+	font-weight: bold;
+	}
+
+.home-03 .btn{
+	background:#87b84c!important;
+	color: white!important;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;
+	font-style:italic!important;
+	font-weight:bold;
+	width: 100%;
+	font-size: 28px;
+	margin-bottom: 10px;
+	}
+
+.home-03 .foto img{
+	border: 2px solid red;
+	box-shadow: 0px 20px 150px #ccc!important;	
+	}
+
+.home-04 h3{
+	font-family:arial;
+	font-weight: bold;
+	color: black;
+	text-transform:uppercase;
+	margin:0;
+	font-size:45px;
+	line-height:normal;
+	}
+
+.home-04 h3 i{
+	color:#b5d565!important;	
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;	
+	} 
+
+.home-06 h2{
+	font-family:arial;
+	color: white;
+	}
+
+.home-06 h2 i{
+	color: black!important;
+	font-style: italic!important;
+	font-size:26px!important;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;
+	}
+	
+.btn.green{
+	background:#74ac42;
+	padding: 2px 30px;
+	font-size:22px;
+	font-style:italic;
+	color: white;
+	font-weight:bold;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;	
+	} 
+
+#footer h1{
+	color:#69b545!important;
+	font-size: 60px!important;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif!important;
+	font-weight:bold!important;
+	font-style:italic!important;
+	margin:0!important
+	}
+	
+.footer-follow-us i.fa{
+	color: black!important;
+	font-size:38px!important;
+	padding: 0 15px!important;
+	display: inline-block!important;
+	}	
+	
+@media only screen and (min-device-width : 320px) and (max-device-width : 60000px){ 
+.view-products img{
+	width: auto!important}
+}
+	
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px){ 
+.mb-10 { 
+	display: block; position:fixed; bottom:10px;
+	z-index:100;
+	}
+	
+#slider-01{
+	padding:0!important}	
+}	
+
+
+@media only screen and (min-width : 1280px) and (max-width : 5600px){ 
+.nav-logo-wrap{
+	border: 0px solid red;
+	width:100%;
+	text-align:center;
+	max-height: 112px;
+	}
+.nav-logo-wrap .logo img{
+	border: 0px solid red;
+	max-height:112px;
+	width:auto;}
+
+.nav-logo-wrap .logo{
+	height:112px;
+	display:block!important;
+	width:100%!important;
+	max-width: 100%!important;
+	border:0px solid green;
+	text-align:center
+	}
+	
+.full-wrapper{
+	border:0px solid red;
+	background: white;
+	margin:0;
+	}
+	
+.desktop-nav{
+	border: 0px solid blue;
+	width: 100%;}
+
+.desktop-nav ul{
+	width: 70%;
+  	margin: auto;
+}
+.desktop-nav ul > ul{
+	width: 100%!important;
+  	margin: 0!important;
+}
+
+.inner-nav{
+	max-width:100%;
+	}
+
+}
+
+/*  */
+

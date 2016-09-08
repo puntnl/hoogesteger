@@ -1,0 +1,126 @@
+.form-item label {
+
+  display: block;
+
+}
+
+.form-type-checkbox label{
+
+  display: inline-block;
+
+}
+
+
+
+/* Color Radios */
+
+.color-radios input[type="radio"] {
+
+  display:none;
+
+}
+
+.color-radios .form-item{
+
+  display: inline-block;
+
+}
+
+.color-radios label {
+
+  display: inline-block !important;
+
+  width: 32px;
+
+  height: 32px;
+
+  border: 2px solid transparent !important;
+
+  text-indent: -9999px;
+
+}
+
+.color-radios input[type="radio"]:checked + label {
+
+  border: 2px solid #3d3d3d !important;
+
+}
+
+#edit-skin-default + label{
+
+/*  background: #e91e63;*/
+
+}
+
+#edit-skin-blue + label{
+
+  background: #03a9f4;
+
+}
+
+#edit-skin-blue-gray + label{
+
+  background: #607d8b;
+
+}
+
+#edit-skin-brown + label{
+
+  background: #795548;
+
+}
+
+#edit-skin-cyan + label{
+
+  background: #00bcd4;
+
+}
+
+#edit-skin-green + label{
+
+  background: #4caf50;
+
+}
+
+#edit-skin-green-light + label{
+
+  background: #8bc34a;
+
+}
+
+#edit-skin-indigo + label{
+
+  background: #3f51b5;
+
+}
+
+#edit-skin-orange + label{
+
+  background: #ff9800;
+
+}
+
+#edit-skin-orange-deep + label{
+
+  background: #ff5722;
+
+}
+
+#edit-skin-purple + label{
+
+  background: #9c27b0;
+
+}
+
+#edit-skin-red + label{
+
+  background: #f44336;
+
+}
+
+#edit-skin-yellow + label{
+
+  background: #ffc107;
+
+}
+
